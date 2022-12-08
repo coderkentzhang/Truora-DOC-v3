@@ -29,3 +29,9 @@ application.yml,application-fiscobcos2.yml,application-fiscobcos3.yml,bcos3sdk_c
 ```
 数据库可采用Mysql/MariaDB，首先要先建库，保证配置正确，以连接到数据库。建表脚本为
 ```dbscripts/V2022.10__v1.0.0_init_table.sql```
+
+
+```
+Truora-Service适配fisco bcos3.x的版本,未提供docker/web等工具，如有需要可自行开发适配。
+如使用适配fisco-bcos2.x的版本，可以在 github和readthedoc上都切换到v2stable分支，按该分支的代码和文档开发和操作。
+```
