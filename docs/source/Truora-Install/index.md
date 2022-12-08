@@ -1,5 +1,7 @@
 # 安装部署
 
+Truora-Service本身是个典型的SpringBoot工程，只要熟悉Java以及相关的知识，则可以按照一般Java项目的开发部署模式，完成全流程的操作。
+
 当前版本聚焦于代码级的开发编译部署。
 
 ## 1：从github/gitee获取Truora-Service代码
