@@ -1,51 +1,29 @@
 # 安装部署
 
-<!--TODO. 调整格式-->
-Truora 服务的部署模式有如下两种方式：
+当前版本聚焦于代码级的开发编译部署。
 
-* **一键部署**
-
-```eval_rst
-.. admonition:: 适用场景
-
-     - 快速体验 Truora 服务
-     - 预言机服务的开发和调试
+## 1：从github/gitee获取Truora-Service代码
+```
+git clone https://github.com/WeBankBlockchain/Truora-Service.git
+git clone https://gitee.com/WeBankBlockchain/Truora-Service.git
 ```
 
-一键部署使用一键部署脚本（`deploy-all.sh`），在部署 Truora 服务时，会自动部署依赖服务，包括：
+## 2: 构建开发环境
+结合自己的开发环境IDE导入Java项目
 
-| 服务名  | 功能  |
-|---|---|
-| FISCO-BCOS  |  包含 4 个 FISCO-BCOS 节点的区块链底层服务 |
-|  WeBASE-Front | 提供 Solidity 合约的可视化开发，编译，部署和调试功能  |
-|  Truora-Service | Truora 的 **后** 端服务  |
-| Truora-Web  | Truora 的 **前** 端页面  |
-| MySQL  |  数据库服务，存储请求历史记录， 预言机相关合约的地址 |
+## 3：开发编译
+参见本文档的开发教程章节
 
+## 4：打包发布
+按常规的Java工程打包。
 
+根据实际运行环境，如本地服务器、云主机、docker等具体情况，将Jar包发布到运行环境，启动运行。
 
+项目的主入口是com.webank.truora.Application
 
-* **独立部署**
-```eval_rst
-.. admonition:: 适用场景
-
-     - 已有 FISCO-BCOS 底层节点
+连接区块链和数据库需修改以下配置文件,可参考工程里的模板，根据实际情况进行修改
 ```
-
-独立部署使用脚本工具（`deploy-single.sh`），仅仅部署 Truora 的 **两个** 核心服务：
-
-| 服务名  | 功能  |
-|---|---|
-|  Truora-Service | Truora 的 **后** 端服务  |
-| Truora-Web  | Truora 的 **前** 端页面  |
-
-
-```eval_rst
-.. toctree::
-   :maxdepth: 1
-
-   ./docker-all.md
-   ./docker-single.md
-   ./appendix.md
+application.yml,application-fiscobcos2.yml,application-fiscobcos3.yml,bcos3sdk_config.yml
 ```
-
+数据库可采用Mysql/MariaDB，首先要先建库，保证配置正确，以连接到数据库。建表脚本为
+```dbscripts/V2022.10__v1.0.0_init_table.sql```
