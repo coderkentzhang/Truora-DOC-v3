@@ -6,18 +6,23 @@ Truora-Service本身是个典型的SpringBoot工程，只要熟悉Java以及相�
 **当前版本聚焦于代码级的开发编译部署。未提供docker/web等工具，如有需要可自行开发适配。**
 
 ## 1：从github/gitee获取Truora-Service代码
+
+github:
 ```
 git clone https://github.com/WeBankBlockchain/Truora-Service.git
+```
+gitee:
+```
 git clone https://gitee.com/WeBankBlockchain/Truora-Service.git
 ```
 
-```eval_rst 
-.. important::
+***
+注意：
 
-如区块链底层平台为FISCO BCOS 3.1.0+,使用Truora-Service的master分支。不支持FISCO  BCOS3.0.0版本。
+如区块链底层平台为FISCO BCOS 3.1.0+,使用Truora-Service的master分支。3.0.0版本底层未支持。
 
-如区块链底层平台为FISCO BCOS 2.6.0+(且低于3.0.0)，则使用Truora-Service的v2stabe分支
-``` 
+如区块链底层平台为FISCO BCOS 2.6.0+(且低于3.0.0)，则使用Truora-Service的v2stabe分支。低于2.6.0版本底层未支持。
+***
 
 
 ## 2：构建开发环境
