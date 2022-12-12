@@ -8,6 +8,7 @@ Contents
 .. toctree::
    
    introduction.md
+   deploy.md
    dev-quick-start.md
    Truora-bac/index.md
    Truora-Service/index.md

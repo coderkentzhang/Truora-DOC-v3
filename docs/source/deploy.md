@@ -1,5 +1,5 @@
 
-# 源码编译
+# 编译和安装部署
 
 ## 安装介绍
 
@@ -31,9 +31,7 @@ Truora-Service本身是个典型的SpringBoot工程，只要熟悉Java以及相�
 
 ## 拉取代码
 
-执行命令：
-```Bash
-# 拉取源码
+
 github:
 ```
 git clone https://github.com/WeBankBlockchain/Truora-Service.git
@@ -53,12 +51,9 @@ git clone https://gitee.com/WeBankBlockchain/Truora-Service.git
 
 
 
-# 进入目录
-cd Truora-Service
-```
 
 
-## 编译代码
+## gradle编译
 
 方式一：如果服务器已安装Gradle，且版本为 Gradle-5.60 +
 
@@ -76,7 +71,7 @@ chmod +x ./gradlew && ./gradlew build -x test
 
 
 
-## 加密类型
+## 获取证书
 FISCO-BCOS 链有两种类型： **非国密（ECDSA）** 和 **国密（SM2）** 。
 
 
@@ -88,25 +83,13 @@ FISCO-BCOS 链有两种类型： **非国密（ECDSA）** 和 **国密（SM2）*
     - 使用 **国密** 的方式连接节点，需要拷贝 `sdk/gm` 目录下 `gm` 开头的所有文件
 ```
 
+将链证书复制到编译后的dist/conf/sdk目录下。
 
 
-## 修改配置
 
-进入 `dist` 目录
-
-```
-cd dist
-```
-
-`dist` 目录提供了一份配置模板 `conf`
-
-### 配置数据库
+## 配置数据库
 修改配置 `conf/application.yml` 文件
 
-```Bash
-# 进入 conf 目录
-cd conf
-```
 
 * 修改数据库 `IP` 地址，用户名和密码。 
    
@@ -122,47 +105,8 @@ cd conf
 
 
 
-### 拷贝证书
 
-在拷贝证书文件之前，需要确定使用哪种方式连接到链接点：非国密连接（ECDSA）还是 国密连接（SM2），请参考：[连接类型](./deploy.html#connection_type)
-
-  * 非国密连接
-  
-```shell
-# 进入 conf 目录
-cd conf
-
-# 非国密连接
-cp  /${PATH_TO_SDK}/node.* .
-cp  /${PATH_TO_SDK}/ca.crt .
-```
-
-```eval_rst
-.. important::
-
-    - **非国密链：** 拷贝节点所在目录 `nodes/${ip}/sdk` 下的 `ca.crt`、`node.crt` 和 `node.key` 文件拷贝到 `conf` 目录
-```
-
-  * 国密连接
-  
-    
-```shell
-# 进入 conf 目录
-cd conf
-
-# 国密连接
-cp  /${PATH_TO_SDK}/gm/gm.* .
-```
-
-```eval_rst
-.. important::
-
-    - **国密链：** 拷贝节点所在目录 `nodes/${ip}/sdk/gm` 下的 `gm` 开头的所有文件拷贝到 `conf` 目录
-```
-
-
-
-### 配置连接
+## 配置连接
 
 
 Truora-Service 支持同时连接多条链，以及连接同一条链中的多个群组。
@@ -172,7 +116,7 @@ Truora-Service 支持同时连接多条链，以及连接同一条链中的多�
 
 * 如果连接FISCO BCOS 3.x版本的底层，配置application-fiscobcos3.yml，以及bcos3sdk_config.xml
 
-配置文件有模板和注释，可参照修改。
+配置文件有模板和注释，可参照修改。注意证书路径等细节要和实际位置匹配
 
 **虽然项目支持一个Truora-Service连接多条链，但从工程实操上讲，不建议这么做，在配置复杂度，可用性等方面都会带来一些问题**
 

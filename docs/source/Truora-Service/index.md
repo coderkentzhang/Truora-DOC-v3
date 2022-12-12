@@ -5,7 +5,6 @@
     :maxdepth: 1
 
     outline.md
-    deploy.md
     interface.md
     appendix.md
 ```
