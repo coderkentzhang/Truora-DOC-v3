@@ -20,8 +20,6 @@
  区块链愈发展，对链下数据的需求就会愈强烈，预言机的重要性也会愈发凸显。
 
  作为连接 `FISCO-BCOS` 联盟链和互联网的桥梁，Truora致力于解决互联网数据安全可信的上链，助力扩宽联盟链的应用场景和丰富联盟链的生态。
-
- Truora 服务主要由后端 `Java` 组件 `Truora-Service <https://github.com/WeBankBlockchain/Truora-Service>`_ 和前端 `Vue` 组件 `Truora-Web <https://github.com/WeBankBlockchain/Truora-Web>`_ 组成。
 ```
 ![](_images/oracle-frame.png)
 
