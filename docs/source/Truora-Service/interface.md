@@ -84,6 +84,52 @@ HTTP GET
 
 ```
 
+### 连接的底层链和群组检测接口
+
+#### 接口描述
+
+> 查询 Truora 服务所连接的底层链列表，并发起一次连通性检测(获取区块高度和基本信息）
+
+#### 接口URL
+
+**http://localhost:5022/truora/chain/group/ping**
+
+#### 调用方法
+
+HTTP GET
+
+#### 响应数据
+
+```json
+{
+  "code": 0,
+  "message": "success",
+  "data": [
+    {
+      "name": "FISCOBCOS2_Chain1_Group1",
+      "nodeVersion": {
+        "Build Time": "20210201 10:03:03",
+        "Build Type": "Linux/clang/Release",
+		...
+      },
+      "BlockNumber": 3082
+    },
+    {
+      "name": "FISCOBCOS3_chain0_group0",
+      "groupInfo": {
+	    "chainID": "chain0",
+        "groupID": "group0",
+        "genesisConfig": {
+			...
+      },
+      "BlockNumber": 1805
+    }
+  ],
+  "totalCount": 2
+}
+
+```
+
 <span id="list_oracle_address" />
 
 ### OracleCore 合约地址查询接口
