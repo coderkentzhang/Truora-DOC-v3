@@ -7,6 +7,5 @@
     outline.md
     deploy.md
     interface.md
-    question.md
     appendix.md
 ```

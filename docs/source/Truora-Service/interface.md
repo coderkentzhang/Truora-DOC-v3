@@ -12,7 +12,7 @@
 
 #### 接口URL
 
-**http://localhost:5021/Oracle-Service/server/version**
+**http://localhost:5022/truora/server/version**
 
 #### 调用方法
 
@@ -51,7 +51,7 @@ HTTP GET
 
 #### 接口URL
 
-**http://localhost:5021/Oracle-Service/oracle/address?chainId=1&groupId=1**
+**http://localhost:5022/truora/oracle/address?chainId=1&groupId=1**
 
 #### 调用方法
 
@@ -110,7 +110,7 @@ HTTP GET
 
 #### 接口URL
 
-**http://localhost:5021/Oracle-Service/history/list?pageNumber=1&pageSize=10&chainId=1&groupId=1&hideResult=false**
+**http://localhost:5022/truora/history/list?pageNumber=1&pageSize=10&chainId=1&groupId=1&hideResult=false**
 
 #### 调用方法
 
@@ -240,7 +240,7 @@ HTTP GET
 
 #### 接口URL
 
-**http://localhost:5021/Oracle-Service/history/query/{requestId}**
+**http://localhost:5022/truora/history/query/{requestId}**
 
 #### 调用方法
 
@@ -336,7 +336,7 @@ HTTP GET
 
 #### 接口URL
 
-**http://localhost:5021/Oracle-Service/center/list?chainId=1&groupId=1**
+**http://localhost:5022/truora/center/list?chainId=1&groupId=1**
 
 #### 调用方法
 

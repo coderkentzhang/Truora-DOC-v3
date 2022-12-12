@@ -4,7 +4,7 @@ Truora 预言机服务中有两个角色：
 
 * **Truora 服务运营方**
 
-    服务运运营方需要部署 `Truora-Service` 和 `Truora-Web` 服务，并且部署预言机相关合约到链上，为预言机用户提供服务。
+    服务运运营方需要部署 `Truora-Service` 服务，并且部署预言机相关合约到链上，为预言机用户提供服务。
 
 * **预言机用户**
     
@@ -17,7 +17,8 @@ Truora 预言机服务中有两个角色：
 
 1. 获取 预言机 相关合约地址
     * 选择一个 Truora 服务运营方，并从运营方获取到 预言机 相关合约地址
-    * 如果没有运营方，可以参考：[安装部署](../Truora-Install/index.html) 自行搭建 Truora 服务。部署完成后，可以通过 Truora-Web 获取 预言机 相关合约地址，请参考：[查询系统合约地址](../Truora-Web/outline.html#list_oracle_address)
+    * 如果没有运营方，可以参考：[安装部署](../Truora-Install/index.html) 自行搭建 Truora 服务。
+	* 搭建完成后，从数据库里获取自动部署的预言机相关合约地址
     
 2. 开发合约
     * 编写，调试合约
@@ -245,13 +246,17 @@ function __callback(bytes32 requestId, int256 result) public {}
 ## 开发示例
 ### 部署预言机服务
 
-部署 Truora 服务，示例使用 **一键部署**，部署整套开发，调试环境，请参考：[安装部署](../Truora-Install/docker-all.html)。
-
+部署 Truora 服务。
 
 ### 获取链下 API 数据
 
 #### 编写预言机合约
-打开一键部署的 WeBASE-Front 页面，默认：`http://{IP}:5002/WeBASE-Front/`，使用部署主机的 IP 地址替换 `{IP}`。
+
+以下采用WeBASE-Front示例，也可以用熟悉的合约开发环境进行开发。
+
+WeBASE相关服务需要参照WeBASE项目文档自行部署。
+
+打开WeBASE-Front 页面，默认：`http://{IP}:5002/WeBASE-Front/`，使用部署主机的 IP 地址替换 `{IP}`。
 
 * 点击左边 **合约管理** --> **测试用户**，创建一个调试用户 `test`
 

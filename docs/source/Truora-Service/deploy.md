@@ -3,31 +3,55 @@
 
 ## 安装介绍
 
+Truora-Service本身是个典型的SpringBoot工程，只要熟悉Java以及相关的知识，则可以按照一般Java项目的开发部署模式，完成全流程的操作。
+
+
+**当前版本聚焦于代码级的开发编译部署。未提供docker/web等工具，如有需要可自行开发适配。**
+
 ## 前置依赖
 
 在使用本组件前，请确认系统环境已安装相关依赖软件，清单如下：
 
 | 依赖软件 | 说明 |
 | --- | --- | 
-| FISCO-BCOS | >= 2.6.0 | 
+| FISCO-BCOS | >= 2.6.0 or >=3.1.0 | 
 | MySQL | >= mysql-community-server[5.7] | 
 | Java | JDK[1.8] | 
 | Git | 下载的源码使用 Git | 
 
 请参考：[附录](../appendix.md) 检查系统是否已经安装相关依赖软件。
 
-```eval_rst
-.. important:: 
+*运行前应已经安装FISCO BCOS的底层并把链运行起来。FISCO BCOS底层的安装部署参见其[操作文档](https://fisco-bcos-doc.readthedocs.io/zh_CN/latest/)
 
-     - CentOS 的 yum 仓库的 OpenJDK 缺少 JCE(Java Cryptography Extension)，导致 Web3SDK 无法正常连接区块链节点。CentOS 用户推荐参考 `CentOS 安装 Java <../appendix.html#centos_install_java>`_ 进行安装。
-```
+*数据库应事先安装。可采用Mysql/MariaDB，首先要先建库，保证配置正确，以连接到数据库。建表脚本为项目文件路径里的
+```dbscripts/V2022.10__v1.0.0_init_table.sql```
+
+*WeBASE等中间件平台，按需自行安装。参见[操作文档](https://webasedoc.readthedocs.io/zh_CN/latest/)
+
 
 ## 拉取代码
 
 执行命令：
 ```Bash
 # 拉取源码
+github:
+```
 git clone https://github.com/WeBankBlockchain/Truora-Service.git
+```
+gitee:
+```
+git clone https://gitee.com/WeBankBlockchain/Truora-Service.git
+```
+
+***
+注意：
+
+如区块链底层平台为FISCO BCOS 3.1.0+,使用Truora-Service的master分支。3.0.0版本底层未支持。
+
+如区块链底层平台为FISCO BCOS 2.6.0+(且低于3.0.0)，则使用Truora-Service的v2stabe分支。低于2.6.0版本底层未支持。
+***
+
+
 
 # 进入目录
 cd Truora-Service
@@ -36,7 +60,7 @@ cd Truora-Service
 
 ## 编译代码
 
-方式一：如果服务器已安装Gradle，且版本为 Gradle-4.10 +
+方式一：如果服务器已安装Gradle，且版本为 Gradle-5.60 +
 
 ```shell
 gradle build -x test
@@ -50,61 +74,10 @@ chmod +x ./gradlew && ./gradlew build -x test
 
 构建完成后，会在根目录 Truora-Service 下生成已编译的代码目录 dist。
 
-<span id="encrypt_type">
+
 
 ## 加密类型
 FISCO-BCOS 链有两种类型： **非国密（ECDSA）** 和 **国密（SM2）** 。
-
-在使用 SDK 连接 FISCO-BCOS 链的节点时，也有两种方式：**非国密（ECDSA）连接** 和 **国密（SM2）连接**。 
-
-关于 **链类型** 和 **链连接** 的关系如下：
-
-| 链类型  | 非国密链（ECDSA） |  国密链（SM2） |
-|---|:---:|:---:|
-| 非国密连接（ECDSA）  |  支持 | 支持  |
-| 国密连接（SM2）  | 不支持  | 支持  |
-
-```eval_rst
-.. admonition:: 提示
-
-    - **非国密** 链 **只支持** 非国密连接
-    - **国密** 链 **支持** 非国密连接 和 国密连接，但是需要根据节点的 `config.ini` 文件，检查节点是否已经开启国密连接
-```
-
-在部署 Truora-Service，需要同时配置 **链类型** 和 **连接类型**。
-
-<span id="chain_type"/>
-
-### 链类型
-在使用 `build_chain.sh` 脚本部署 FISCO-BCOS 链时，如果使用了 `-g` 参数，则链类型为 **国密链**。
-
-<span id="connection_type"/>
-
-### 连接类型
-如果 FISCO-BCOS 版本小于或等于 `v2.4.x`，**只能使用** **非国密方式（ECDSA）** 连接链。
-
-如果 FISCO-BCOS 版本大于或等于 `v2.5.x`，执行命令：
-
-```Bash
-# 查看 sm_crypto_channel 配置项
-grep "sm_crypto_channel" nodes/127.0.0.1/node0/config.ini 
-```
-
-* 如果输出：
-
-```ini
-    sm_crypto_channel=true
-```
-
-表示节点已经启用 国密（SM2）连接，**只能使用** **国密方式（SM2）** 连接链。
-
-* 如果没有输出，或者输出如下：
-
-```ini
-    sm_crypto_channel=false
-```
-
-表示节点未启用 国密连接，**只能使用** **非国密方式（ECDSA）** 连接链。
 
 
 ```eval_rst
@@ -144,16 +117,10 @@ cd conf
     username: "defaultAccount"
     password: "defaultPassword"
 ```  
+ 数据库应事先安装。可采用Mysql/MariaDB，首先要先建库，保证配置正确，以连接到数据库。建表脚本为项目文件路径里的
+```dbscripts/V2022.10__v1.0.0_init_table.sql```
 
-### 配置链类型
 
-如果链类型是国密，配置 `encryptType: 1`，关于链类型，请参考：[链类型](./deploy.html#chain_type)
-
-```yaml
-sdk:
-  #0:standard, 1:guomi
-  encryptType: 1 
-```  
 
 ### 拷贝证书
 
@@ -193,125 +160,23 @@ cp  /${PATH_TO_SDK}/gm/gm.* .
     - **国密链：** 拷贝节点所在目录 `nodes/${ip}/sdk/gm` 下的 `gm` 开头的所有文件拷贝到 `conf` 目录
 ```
 
-<span id="modify_service_config" />
 
-### 多链（群组）支持
 
-#### 配置连接
+### 配置连接
+
+
 Truora-Service 支持同时连接多条链，以及连接同一条链中的多个群组。
 
-同一个 Truora-Service 连接多条链时，要求 **链类型** 都相同，同时采用 **相同的连接方式** 连接到链接点。
 
-```eval_rst
-.. important:: 
+* 如果连接FISCO BCOS 2.x版本的底层，配置application-fiscobcos2.yml。
 
-    - 不同链之间相互独立，没有关联
-    - 多条链时，创建独立目录存放不同链的证书文件，同时拷贝证书文件
-```
+* 如果连接FISCO BCOS 3.x版本的底层，配置application-fiscobcos3.yml，以及bcos3sdk_config.xml
 
-  * 如果采用 **非国密连接（ECDSA）**，修改 `application-ecdsa.yml` 文件
+配置文件有模板和注释，可参照修改。
 
-```yaml 
-########################################################################
-# 配置 Truora 连接的链和群组信息（证书和地址）:
-#   1. 同一条链可以配置多个群组
-#   2. 可以配置多条链
-########################################################################
-group-channel-connections-configs:
-  configs:
-    ## 第一条链的连接信息，证书，群组列表和 IP:Port
-    - chainId: 1
-      caCert: classpath:ca.crt
-      sslCert: classpath:node.crt
-      sslKey: classpath:node.key
-      all-channel-connections:
-         - group-id: 1
-           connections-str:
-             # node listen_ip:channel_listen
-             - 127.0.0.1:${FISCO_BCOS_PORT:20200}
-        ## 群组 2 的信息
-        #- group-id: 2
-        #  connections-str:
-        #    - 127.0.0.1:20200
+**虽然项目支持一个Truora-Service连接多条链，但从工程实操上讲，不建议这么做，在配置复杂度，可用性等方面都会带来一些问题**
 
-    ## 第二条链的连接信息，证书，群组列表以及对应的 IP:Port
-    #- chainId: 2
-    #  caCert: classpath:2/ca.crt
-    #  sslCert: classpath:2/node.crt
-    #  sslKey: classpath:2/node.key
-    #  all-channel-connections:
-    #    - group-id: 1
-    #      connections-str:
-    #        - 127.0.0.1:20200
-
-```
-
-* 如果采用 **国密连接（SM2）**，修改 `application-sm2.yml` 文件
-
-```yaml 
-########################################################################
-# 配置 Truora 连接的链和群组信息（证书和地址）:
-#   1. 同一条链可以配置多个群组
-#   2. 可以配置多条链
-########################################################################
-group-channel-connections-configs:
-  configs:
-    ## 第一条链的连接信息，证书，群组列表和 IP:Port
-    - chainId: 1
-      gmCaCert: classpath:gmca.crt
-      gmSslCert: classpath:gmsdk.crt
-      gmSslKey: classpath:gmsdk.key
-      gmEnSslCert: classpath:gmensdk.crt
-      gmEnSslKey: classpath:gmensdk.key
-      all-channel-connections:
-         - group-id: 1
-           connections-str:
-             # node listen_ip:channel_listen
-             - 127.0.0.1:${FISCO_BCOS_PORT:20200}
-        ## 群组 2 的信息
-        #- group-id: 2
-        #  connections-str:
-        #    - 127.0.0.1:20200
-
-    ## 第二条链的连接信息，证书，群组列表以及对应的 IP:Port
-    #- chainId: 2
-    #  gmCaCert: classpath:2/gmca.crt
-    #  gmSslCert: classpath:2/gmsdk.crt
-    #  gmSslKey: classpath:2/gmsdk.key
-    #  gmEnSslCert: classpath:2/gmensdk.crt
-    #  gmEnSslKey: classpath:2/gmensdk.key
-    #  all-channel-connections:
-    #    - group-id: 1
-    #      connections-str:
-    #        - 127.0.0.1:20200
-
-``` 
-
-#### 启用链和群组
-  
-根据连接类型，修改 `application-ecdsa.yml` 或 `application-sm2.yml` 文件中 `event.eventRegisters` 配置。
-  
-```eval_rst
-.. admonition:: 提示
-
-     - 配置多链多群组监听时，配置的链ID和群组ID，必须在 `group-channel-connections-configs` 中配置过
-     - `group-channel-connections-configs` 表示 Truora-Service 会连接到哪些链和群组
-     - `eventRegisters` 表示启用哪些链和群组
-```
-  
-```yaml
-########################################################################
-# 配置事件监听：
-#   1. 配置 Truora 需要监听的链（ChainId）和群组（groupId）
-#   2. 配置的 chainId 和 groupId 需要在 group-channel-connections-configs 存在
-########################################################################
-event:
-  eventRegisters:
-   - {chainId: 1, group: 1}
-   #- {chainId: 1, group: 2}
-   #- {chainId: 2, group: 1}
-   #- {chainId: 2, group: 2}
-```  
+**建议是每个Truora-Service实例连接一条底层链。
 
 
 
