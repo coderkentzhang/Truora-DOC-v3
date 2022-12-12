@@ -1,7 +1,3 @@
-# 接口规范
-
-## Truora-Service
-
 <span id="server_version" />
 
 ### 查询 Truora 版本
