@@ -8,12 +8,10 @@ Contents
 .. toctree::
    
    introduction.md
-   Truora-Install/index.md
-   ChangeLOG.md
-   upgrade.md
+   install.md
    develop/quick-start.md
    Truora-bac/index.md
-   subsystem.md
+   Truora-Service/index.md
    CONTRIBUTING.md
    community.md
 
