@@ -81,7 +81,8 @@ HTTP GET
   ],
   "totalCount": 2
 }
-···
+
+```
 
 <span id="list_oracle_address" />
 
