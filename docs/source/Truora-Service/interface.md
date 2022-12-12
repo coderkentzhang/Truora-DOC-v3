@@ -10,7 +10,7 @@
 
 #### 接口URL
 
-**http://localhost:5022/truora/server/version**
+**http://localhost:5022/truora/version**
 
 #### 调用方法
 
@@ -39,6 +39,50 @@ HTTP GET
 }
 ```
 
+
+<span id="list_group" />
+
+
+### 连接的底层链和群组查询接口
+
+#### 接口描述
+
+> 查询 Truora 服务所连接的底层链列表
+
+#### 接口URL
+
+**http://localhost:5022/truora/chain/group/list**
+
+#### 调用方法
+
+HTTP GET
+
+#### 响应数据
+
+```json
+{
+  "code": 0,
+  "message": "success",
+  "data": [
+    {
+      "platform": "fiscobcos2",
+      "chainId": "1",
+      "groupIdList": [
+        "1"
+      ]
+    },
+    {
+      "platform": "fiscobcos3",
+      "chainId": "chain0",
+      "groupIdList": [
+        "group0"
+      ]
+    }
+  ],
+  "totalCount": 2
+}
+···
+
 <span id="list_oracle_address" />
 
 ### OracleCore 合约地址查询接口
@@ -61,8 +105,8 @@ HTTP GET
 
 | **参数名**   | **类型** | **必填**| **默认值**  | **说明**|
 | ------ | -------------- | ------------ |:--------:| --------- |
-| chainId | int  |  否    | 1      |  链编号      |
-| groupId | int  |     否      | 1      | 群组编号       |
+| chainId | int  |  否    | 1 (for fisco bcos 2.x) or  chain0 (for fisco bcos3.x)  |  链编号      |
+| groupId | int  |     否      | 1 (for fisco bcos 2.x) or group0 (for fisco bcos3.x)    | 群组编号       |
 
 
 **2）数据格式**
