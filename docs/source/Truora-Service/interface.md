@@ -2,7 +2,9 @@
 
 可以用浏览器或curl直接访问索引页查看列表：
 
-```http://localhost:5022/truora/index```
+```
+http://localhost:5022/truora/index
+```
 
 
 <span id="server_version" />
