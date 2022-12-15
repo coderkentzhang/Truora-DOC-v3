@@ -1,5 +1,7 @@
 ## 接口列表
 
+可以用浏览器或curl直接访问```http://localhost:5022/truora/index``` 查看列表。
+
 <span id="server_version" />
 
 ### 查询 Truora 版本
@@ -16,15 +18,7 @@
 
 HTTP GET
 
-#### 请求参数
 
-**1）参数表**    
-
-无
-
-**2）数据格式**   
-
-无
 #### 响应参数
 
 **1）数据格式** 

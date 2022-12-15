@@ -23,7 +23,8 @@ Truora-Service本身是个典型的SpringBoot工程，只要熟悉Java以及相�
 
 *运行前应已经安装FISCO BCOS的底层并把链运行起来。FISCO BCOS底层的安装部署参见其[操作文档](https://fisco-bcos-doc.readthedocs.io/zh_CN/latest/)
 
-*数据库应事先安装。可采用Mysql/MariaDB，首先要先建库，保证配置正确，以连接到数据库。建表脚本为项目文件路径里的
+*数据库应事先安装。可采用Mysql/MariaDB，首先要先手工建库truora，并保证application.yml里的数据库连接配置正确，以连接到数据库。建表脚本为项目文件路径里的
+
 ```dbscripts/V2022.10__v1.0.0_init_table.sql```
 
 *WeBASE等中间件平台，按需自行安装。参见[操作文档](https://webasedoc.readthedocs.io/zh_CN/latest/)
@@ -100,9 +101,9 @@ FISCO-BCOS 链有两种类型： **非国密（ECDSA）** 和 **国密（SM2）*
     username: "defaultAccount"
     password: "defaultPassword"
 ```  
- 数据库应事先安装。可采用Mysql/MariaDB，首先要先建库，保证配置正确，以连接到数据库。建表脚本为项目文件路径里的
-```dbscripts/V2022.10__v1.0.0_init_table.sql```
+*数据库应事先安装。可采用Mysql/MariaDB，首先要先手工建库truora，并保证application.yml里的数据库连接配置正确，以连接到数据库。建表脚本为项目文件路径里的
 
+```dbscripts/V2022.10__v1.0.0_init_table.sql```
 
 
 
@@ -112,15 +113,45 @@ FISCO-BCOS 链有两种类型： **非国密（ECDSA）** 和 **国密（SM2）*
 Truora-Service 支持同时连接多条链，以及连接同一条链中的多个群组。
 
 
-* 如果连接FISCO BCOS 2.x版本的底层，配置application-fiscobcos2.yml。
+* 如果连接FISCO BCOS 2.x版本的底层，配置`application-fiscobcos2.yml`。可参见文档的stable分支版本里的详细说明。本文档注重讲解面向FISCO  BCOS 3.x版本的配置。
 
-* 如果连接FISCO BCOS 3.x版本的底层，配置application-fiscobcos3.yml，以及bcos3sdk_config.xml
+* 如果连接FISCO BCOS 3.x版本的底层，配置`application-fiscobcos3.yml`，配置链的连接参数以及`bcos3sdk_config.toml`，如果是连接多条链，则应有多个不同的`bcos3sdk_config_[链id].toml`文件。
 
-配置文件有模板和注释，可参照修改。注意证书路径等细节要和实际位置匹配
+* application.yml里的spring.profiles段，预置了几种配置组合模式，名字配置在这里的，相应的spring配置文件(如application-fiscobcos3.yml）才会生效。其中dapps对应一些预言机示例。
+```
+spring:
+  profiles:
+    include: dapps,fiscobcos3
+	#include: dapps,fiscobcos2,fiscobcos3
+    #include: fiscobcos2
+    #include: fiscobcos3
+```
 
-**虽然项目支持一个Truora-Service连接多条链，但从工程实操上讲，不建议这么做，在配置复杂度，可用性等方面都会带来一些问题**
+配置文件有模板和注释，可参照修改。注意证书路径等细节要和实际位置匹配。如连接多条链，则证书文件的名字应有不同，且在对应的cos3sdk_config_[链id].toml里一一对应。
 
-**建议是每个Truora-Service实例连接一条底层链。
+举例：如连接FISCO BCOS 3.x的链，链id为chain0，则
+
+1） 将conf目录下的bcos3sdk_config-template.toml复制一份到bcos3sdk_config_chain0.toml
+
+2） 将链的证书复制到conf/sdk目录下，为每个证书改名为 chain0_[原文件名]，如chain0_ca.crt,chain0_sdk.crt,chain0_sdk.key....，国密证书同理，总之是保证文件名不重复
+
+3） 将证书名一一配置到bcos3sdk_config_chain0.toml里，确保一一对应，如
+```
+[cryptoMaterial]
+
+useSMCrypto = "false" # 注意，这一个参数按实际是否适用国密来配置，true表示连接的是国密链
+
+caCert = "sdk/chain0_ca.crt"     
+
+sslCert = "sdk/chain0_sdk.crt"   
+
+sslKey = "sdk/chain0_sdk.key" 
+```
+
+
+**虽然项目支持一个Truora-Service连接多条链，但从工程实操上讲，不建议这么运行，因为这样在配置复杂度，可用性等方面都会带来一些成本**
+
+**建议是每个Truora-Service实例连接一条底层链，清晰解耦，以便维护。
 
 
 
@@ -134,8 +165,6 @@ Truora-Service 支持同时连接多条链，以及连接同一条链中的多�
 # 采用非国密连接（ECDSA）
 bash start.sh
 
-# 采用国密连接（SM2），添加 gm 参数
-bash start.sh gm
 ```
 
 * 停止

@@ -29,7 +29,7 @@ Truora 预言机服务中有两个角色：
 
 用户可以参考 [APISampleOracle.sol](https://github.com/WeBankBlockchain/Truora-Service/blob/main/contracts/1.0/sol-0.6/oracle/APISampleOracle.sol) 合约实现自己的oracle业务合约。
 
-默认支持`solidity0.6`版本合约。 `solidity0.4`在 `Truora-Service` 同级目录。合约解析如下：
+默认支持`solidity0.6`版本合约。 合约解析如下：
 
   - 用户合约需继承FiscoOracleClient合约
    ```
@@ -86,6 +86,30 @@ Truora 预言机服务中有两个角色：
      // 查询某城市某天最高温度  
        json(https://devapi.qweather.com/v7/weather/3d?location=101280601&key=90d8a8ee98ff495694dce72e96f53a18).daily[1].tempMax
 ``` 
+
+---------
+
+建议重点参考的合约：
+`APISampleOracle.sol`: 用于从外部数据源获取uint256类型的结果。
+`APISampleOracleReturnString.sol`： 用于从外部数据源获取String类型的结果。
+`GeneralOracle.sol` : 合并了以上两个合约的功能，根据调用者指定的ReturnType，获取外部数据源，接口同时支持UINT256，String，Byte数组三种类型。
+
+以上合约在项目里都有对应的java调用实现，包括`com.webank.truora.test`包和`com.webank.truora.dapps`包里的代码，可以参考。
+
+---------
+
+在`com.webank.truora.restcontroller`包里，面向`GeneralOracle.sol`合约，实现了`DappGeneral`类，可供在浏览器里验证`GeneralOracle`合约的功能。
+
+其URL的配置参见`application_dapps.yml`里的  GeneralOracle 段。模板提供的url，指向本地的测试桩服务。
+
+测试桩服务代码见`com.webank.truora.restcontroller.SourceStub`，其目的是预置一些随机数和字符串的在线数据源，快速体验和验证预言机能力。
+
+访问这些Restful接口的入口列表，可以用浏览器或curl直接访问[索引页](http://localhost:5022/truora/index)查看列表。
+
+
+---------
+
+
 
 ### 获取VRF随机数
 
