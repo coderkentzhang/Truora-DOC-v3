@@ -121,10 +121,10 @@ Truora-Service 支持同时连接多条链，以及连接同一条链中的多�
 ```
 spring:
   profiles:
-    include: dapps,fiscobcos3
+	include: dapps,fiscobcos3
 	#include: dapps,fiscobcos2,fiscobcos3
-    #include: fiscobcos2
-    #include: fiscobcos3
+	#include: fiscobcos2
+	#include: fiscobcos3
 ```
 
 配置文件有模板和注释，可参照修改。注意证书路径等细节要和实际位置匹配。如连接多条链，则证书文件的名字应有不同，且在对应的cos3sdk_config_[链id].toml里一一对应。
@@ -151,7 +151,7 @@ sslKey = "sdk/chain0_sdk.key"
 
 **虽然项目支持一个Truora-Service连接多条链，但从工程实操上讲，不建议这么运行，因为这样在配置复杂度，可用性等方面都会带来一些成本**
 
-**建议是每个Truora-Service实例连接一条底层链，清晰解耦，以便维护。
+**建议是每个Truora-Service实例连接一条底层链，清晰解耦，以便维护。**
 
 
 

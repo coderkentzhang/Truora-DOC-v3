@@ -1,6 +1,9 @@
 ## 接口列表
 
-可以用浏览器或curl直接访问```http://localhost:5022/truora/index``` 查看列表。
+可以用浏览器或curl直接访问索引页查看列表：
+
+```http://localhost:5022/truora/index```
+
 
 <span id="server_version" />
 

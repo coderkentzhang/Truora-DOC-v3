@@ -90,9 +90,10 @@ Truora 预言机服务中有两个角色：
 ---------
 
 建议重点参考的合约：
-`APISampleOracle.sol`: 用于从外部数据源获取uint256类型的结果。
-`APISampleOracleReturnString.sol`： 用于从外部数据源获取String类型的结果。
-`GeneralOracle.sol` : 合并了以上两个合约的功能，根据调用者指定的ReturnType，获取外部数据源，接口同时支持UINT256，String，Byte数组三种类型。
+
+* `APISampleOracle.sol`: 用于从外部数据源获取uint256类型的结果。
+* `APISampleOracleReturnString.sol`： 用于从外部数据源获取String类型的结果。
+* `GeneralOracle.sol` : 合并了以上两个合约的功能，根据调用者指定的ReturnType，获取外部数据源，接口同时支持UINT256，String，Byte数组三种类型。
 
 以上合约在项目里都有对应的java调用实现，包括`com.webank.truora.test`包和`com.webank.truora.dapps`包里的代码，可以参考。
 
@@ -104,7 +105,8 @@ Truora 预言机服务中有两个角色：
 
 测试桩服务代码见`com.webank.truora.restcontroller.SourceStub`，其目的是预置一些随机数和字符串的在线数据源，快速体验和验证预言机能力。
 
-访问这些Restful接口的入口列表，可以用浏览器或curl直接访问[索引页](http://localhost:5022/truora/index)查看列表。
+访问这些Restful接口的入口列表，可以用浏览器或curl直接访问索引页查看列表
+```http://localhost:5022/truora/index```
 
 
 ---------
