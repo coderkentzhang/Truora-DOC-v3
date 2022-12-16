@@ -441,7 +441,7 @@ http://localhost:5022/truora/dapps/get
 
 **支持的参数**
 
-`urlid=[n]` : 访问配置文件`application_dapps.yml`里预置的多个URL里的第n个
+`url=[n]` : 访问配置文件`application_dapps.yml`里预置的多个URL里的第n个，不指定时默认选择首个。 
 
 `address=[0x...]` : 使用上一小节 deploy 接口部署得到的合约地址`dappContractAddress`，如果不指定，且配置文件里也没配置合约地址，则每次调用均动态创建
 
@@ -457,15 +457,14 @@ http://localhost:5022/truora/dapps/get?url=1&address=0xc058225ec31ed87b62e6a5846
 
 --------
 
-`dapps/get`接口可不带参数时，访问配置文件`application_dapps.yml`里预置的多个URL里的第一个。
 
-可先访问这个URL列出已经配置的数据源和相关参数都有哪几个：
+可先访问这个URL，列出已经配置的数据源和相关参数都有哪几个：
 
 ```
 http://localhost:5022/truora/dapps/list
 ```
 
-示例，url=x对应上面列出来的数据源序号，从0开始：
+示例，url=x对应上面列出来的数据源序号，从1开始 (不指定url参数则默认为0)：
 
 
 ```
@@ -536,6 +535,9 @@ http://localhost:5022/truora/source/rand
 
 
 ####  返回示例字符串
+
+
+**注意只有这个接口支持 input参数**
 
 ```
 http://localhost:5022/truora/source/text?input=sampletext
