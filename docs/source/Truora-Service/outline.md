@@ -19,7 +19,7 @@ Truora-Service 目前主要支持获取链下API,链上可验证随机数（VRF�
      
 ![](../../images/oraclecore.png)   
 
-  用户发起调用后，`FiscoOracleClient` 会调用 `OracleCore` 合约，此时会发起一个事件。`Truora-Service` 监听到事件后， 会从事件信息中取出以下几个信息字段：
+  用户发起调用后，继承于`FiscoOracleClient`的应用端合约会调用 `OracleCore` 合约，此时会发起一个事件。`Truora-Service` 监听到事件后， 会从事件信息中取出以下几个信息字段：
   
    - 请求编号（唯一）
    - 请求地址和数据解析格式（URL）
@@ -34,7 +34,7 @@ Truora-Service 目前主要支持获取链下API,链上可验证随机数（VRF�
   **可验证随机函数**( Verifiable Random Function ，简写 VRF )是一种将输入映射为可验证的伪随机输出的加密方案。广泛应用于区块链的共识算法，智能合约产生随机数场景中。  
   本方案参照 [VRF规范标准化文档](https://tools.ietf.org/html/draft-irtf-cfrg-vrf-06#section-5)实现,
   `VRF`原理可以参考文档[VRF原理](./VRF.md)   
-  用户发起调用后，需要传入随机数种子，`VRFClient` 会调用 `VRFCore` 合约，此时会发起一个事件。`Truora-Service` 监听到事件后,会从事件信息中取出以下几个信息字段：
+  用户发起调用后，需要传入随机数种子，继承于`VRFClient`的应用合约会调用 `VRFCore` 合约，此时会发起一个事件。`Truora-Service` 监听到事件后,会从事件信息中取出以下几个信息字段：
    - 请求编号（唯一）
    - 用户输入随机数种子
    - 预言机公钥哈希
