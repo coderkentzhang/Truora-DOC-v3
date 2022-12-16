@@ -5,7 +5,6 @@
 
 ```
 http://localhost:5022/truora/index
-
 ```
 
 **（localhost地址根据实际部署的IP或域名替换）**
@@ -19,7 +18,6 @@ http://localhost:5022/truora/index
 
 ```
 http://localhost:5022/truora/version
-
 ```
 
 
@@ -396,61 +394,6 @@ http://localhost:5022/truora/history/query/{requestId}
 
 
 
-### 查询 Truora-Service 服务信息
-
-
-查询 Truora-Service 服务信息，包括 `keyHash` 和 `publicKeyList`
-
-
-```
-http://localhost:5022/truora/center/list?chainId=1&groupId=1
-```
-
-
-#### 请求参数
-
-| **参数名**   | **类型** | **必填**| **默认值**  | **说明**|
-| ------ | -------------- | ------------ |:--------:| --------- |
-| chainId | String  |  否    | 1      |  链编号      |
-| groupId | String  |     否      | 1      | 群组编号       |
-
-
-#### 响应内容示例
-
-
-```json
-{
-  "code": 0,
-  "message": "success",
-  "data": [
-    {
-      // 服务编号，从 0 开始，一次递增
-      "index": 0,
-      // 
-      "oracleServiceAddress": "0x9c9c89314573086ace5a5825b33d52eee1f99a8a",
-      // Truora-Service 的 PublicKey
-      "publicKeyList": [
-        "1c8f2ab90b4323f182e85fcd25e4d8b17267b9decb1305592b3d66952ce3d82a",
-        "008e89fdc1b5807c400e6339eb5428318be0d5a09696693ce40f27eede2d162a56"
-      ],
-      // Truora-Service 的 keyHash
-      "keyHash": "45f6483e01a8956d4ce4700d9c9c89314573086ace5a5825b33d52eee1f99a8a",
-      "operator": "operator",
-      "url": "http://localhost",
-      "creatTime": "2020-11-18 11:40:12",
-      "latestRequstProcessedTime": 0,
-      "status": true,
-      "processedRequestAmount": 0
-    },
-    // 多个
-    ......
-  ],
-  "totalCount": 0
-}
-
-```
-
-
 ### Dapp体验接口
 
 示例Dapp，可体验获取一些预置数据源的结果，获取的URL参见配置文件`application_dapp.yml`,以及返回的响应数据
@@ -501,8 +444,7 @@ http://localhost:5022/truora/dapps/get?url=3
 
 这些数据源作为“桩”，供快速体验，不要用于真实的应用环境
 
-#### ** 返回一个json，rates数组里包含模拟汇率
-
+#### 返回一个json，rates数组里包含模拟汇率
 
 ```
 http://localhost:5022/truora/source/exchange"
@@ -513,7 +455,7 @@ http://localhost:5022/truora/source/exchange"
 https://api.exchangerate-api.com/v4/latest/CNY
 ```
 
-#### ** 多行结果，每一行是一个整形的随机数
+#### 返回多个整形随机数，分多行
 
 
 ```
@@ -526,7 +468,7 @@ http://localhost:5022/truora/source/rand
  ```
 
 
-####  ** 返回示例字符串
+####  返回示例字符串
 
 ```
 http://localhost:5022/truora/source/text?input=sampletext
