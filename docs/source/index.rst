@@ -13,8 +13,8 @@ Contents
    dev-stepbystep.md
    Truora-Service/outline.md
    Truora-Service/interface.md
-   Truora-Service/appendix.md
    Truora-bac/index.md 
+   Truora-Service/appendix.md
    CONTRIBUTING.md
    community.md
 
