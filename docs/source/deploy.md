@@ -21,9 +21,9 @@ Truora-Service本身是个典型的SpringBoot工程，只要熟悉Java以及相�
 
 请参考：[附录](../appendix.md) 检查系统是否已经安装相关依赖软件。
 
-*运行前应已经安装FISCO BCOS的底层并把链运行起来。FISCO BCOS底层的安装部署参见其[操作文档](https://fisco-bcos-doc.readthedocs.io/zh_CN/latest/)
+* 运行前应已经安装FISCO BCOS的底层并把链运行起来。FISCO BCOS底层的安装部署参见其[操作文档](https://fisco-bcos-doc.readthedocs.io/zh_CN/latest/)
 
-*数据库应事先安装。可采用Mysql/MariaDB，首先要先手工建库truora，并保证application.yml里的数据库连接配置正确，以连接到数据库。建表脚本为项目文件路径里的
+* 数据库应事先安装。可采用Mysql/MariaDB，首先要先手工建库`truora`，并保证`application.yml`里的数据库连接配置正确，以连接到数据库。建表脚本为项目文件路径里的
 
 ```dbscripts/V2022.10__v1.0.0_init_table.sql```
 
@@ -127,15 +127,15 @@ spring:
 	#include: fiscobcos3
 ```
 
-配置文件有模板和注释，可参照修改。注意证书路径等细节要和实际位置匹配。如连接多条链，则证书文件的名字应有不同，且在对应的cos3sdk_config_[链id].toml里一一对应。
+配置文件有模板和注释，可参照修改。注意证书路径等细节要和实际位置匹配。如连接多条链，则证书文件的名字应有不同，且在对应的`cos3sdk_config_[链id].toml`里一一对应。
 
-举例：如连接FISCO BCOS 3.x的链，链id为chain0，则
+举例：如连接FISCO BCOS 3.x的链，链id为`chain0`，则
 
-1） 将conf目录下的bcos3sdk_config-template.toml复制一份到bcos3sdk_config_chain0.toml
+1） 将conf目录下的`bcos3sdk_config-template.toml`复制一份到`bcos3sdk_config_chain0.toml`
 
 2） 将链的证书复制到conf/sdk目录下，为每个证书改名为 chain0_[原文件名]，如chain0_ca.crt,chain0_sdk.crt,chain0_sdk.key....，国密证书同理，总之是保证文件名不重复
 
-3） 将证书名一一配置到bcos3sdk_config_chain0.toml里，确保一一对应，如
+3） 将证书名一一配置到`bcos3sdk_config_chain0.toml`里，确保一一对应，如
 ```
 [cryptoMaterial]
 
@@ -191,5 +191,5 @@ Application() - main run success...
 
 ```Bash
 # 前置服务日志：
-tail -f log/Oracle-Service.log
+tail -f log/truora-service.log
 ```

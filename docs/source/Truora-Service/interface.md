@@ -1,32 +1,24 @@
-## 接口列表
+## Restful接口列表
 
-可以用浏览器或curl直接访问索引页查看列表：
+访问这些Restful接口的入口列表，可以在服务启动后，用浏览器或curl直接访问索引页查看列表：
 
 ```
 http://localhost:5022/truora/index
 ```
 
+（localhost地址根据实际部署的IP或域名替换）
+
+以下URL接口的访问方式如无特殊说明均为`GET`
 
 <span id="server_version" />
 
 ### 查询 Truora 版本
 
-#### 接口描述
-
-> 查询 Truora 服务版本
-
-#### 接口URL
-
 **http://localhost:5022/truora/version**
 
-#### 调用方法
 
-HTTP GET
+#### 响应内容示例
 
-
-#### 响应参数
-
-**1）数据格式** 
 
 ```json
 {
@@ -44,19 +36,11 @@ HTTP GET
 
 ### 连接的底层链和群组查询接口
 
-#### 接口描述
-
-> 查询 Truora 服务所连接的底层链列表
-
-#### 接口URL
 
 **http://localhost:5022/truora/chain/group/list**
 
-#### 调用方法
 
-HTTP GET
-
-#### 响应数据
+#### 响应内容示例
 
 ```json
 {
@@ -85,19 +69,11 @@ HTTP GET
 
 ### 连接的底层链和群组检测接口
 
-#### 接口描述
-
-> 查询 Truora 服务所连接的底层链列表，并发起一次连通性检测(获取区块高度和基本信息）
-
-#### 接口URL
+查询 Truora 服务所连接的底层链列表，并发起一次连通性检测(获取区块高度和基本信息）
 
 **http://localhost:5022/truora/chain/group/ping**
 
-#### 调用方法
-
-HTTP GET
-
-#### 响应数据
+#### 响应内容示例
 
 ```json
 {
@@ -133,33 +109,27 @@ HTTP GET
 
 ### OracleCore 合约地址查询接口
 
-#### 接口描述
 
-> 查询 OracleCore 合约地址，用户编写自定义合约时使用
+查询 OracleCore 合约地址，用户编写自定义合约时使用
 
-#### 接口URL
+for FISCOBCOS2:
 
 **http://localhost:5022/truora/oracle/address?chainId=1&groupId=1**
 
-#### 调用方法
+for FISCOBCOS3
 
-HTTP GET
+**http://localhost:5022/truora/oracle/address?chainId=chain0&groupId=group0**
+
 
 #### 请求参数
 
-**1）参数表**
-
 | **参数名**   | **类型** | **必填**| **默认值**  | **说明**|
 | ------ | -------------- | ------------ |:--------:| --------- |
-| chainId | int  |  否    | 1 (for fisco bcos 2.x) or  chain0 (for fisco bcos3.x)  |  链编号      |
-| groupId | int  |     否      | 1 (for fisco bcos 2.x) or group0 (for fisco bcos3.x)    | 群组编号       |
+| chainId | String  |  否    | 1 (for fisco bcos 2.x) or  chain0 (for fisco bcos3.x)  |  链编号      |
+| groupId | String  |     否      | 1 (for fisco bcos 2.x) or group0 (for fisco bcos3.x)    | 群组编号       |
 
 
-**2）数据格式**
-无
-#### 响应参数
-
-**1）数据格式** 
+#### 响应内容示例
 
 ```json
 {
@@ -192,36 +162,22 @@ HTTP GET
 
 ### 查询历史请求列表
 
-#### 接口描述
-
-> 查询所有的历史请求记录
-
-#### 接口URL
-
 **http://localhost:5022/truora/history/list?pageNumber=1&pageSize=10&chainId=1&groupId=1&hideResult=false**
-
-#### 调用方法
 
 HTTP GET
 
 #### 请求参数
 
-**1）参数表**
-
 | **参数名**   | **类型** | **必填**| **默认值**  | **说明**|
 | ------ | -------------- | ------------ |:--------:| --------- |
-| chainId | int  |  否    | 1      |  链编号      |
-| groupId | int  |     否      | 1      | 群组编号       |
+| chainId | String  |  否    | 1      |  链编号      |
+| groupId | String  |     否      | 1      | 群组编号       |
 | hideResult | boolean  |否 | `true` | `true`: 不返回 `result` 结果；<br />`false`: 返回    |
 | pageNumber | int  |     否      | 1      | 第几页     |
 | pageSize | int  |     否      | 10，最大不超过 20    | 每页条数     |
 
+#### 响应内容示例
 
-**2）数据格式**
-无
-#### 响应参数
-
-**1）数据格式** 
 
 ```json
 {
@@ -322,21 +278,10 @@ HTTP GET
 
 ### 查询单个请求详情
 
-#### 接口描述
-
-> 查询单个请求详情
-
-#### 接口URL
-
 **http://localhost:5022/truora/history/query/{requestId}**
 
-#### 调用方法
-
-HTTP GET
 
 #### 请求参数
-
-**1）参数表**
 
 | **参数名**   | **类型** | **必填**| **默认值**  | **说明**|
 | ------ | -------------- | ------------ |:--------:| --------- |
@@ -344,9 +289,7 @@ HTTP GET
 
 **注意：requestId 对应历史请求列表中返回记录的 `reqId` 字段**
 
-**2）数据格式**
-无
-#### 响应参数
+#### 响应内容示例
 
 **1）数据格式** 
 
@@ -418,33 +361,23 @@ HTTP GET
 
 ### 查询 Truora-Service 服务信息
 
-#### 接口描述
 
-> 查询 Truora-Service 服务信息，包括 `keyHash` 和 `publicKeyList`
+查询 Truora-Service 服务信息，包括 `keyHash` 和 `publicKeyList`
 
 #### 接口URL
 
 **http://localhost:5022/truora/center/list?chainId=1&groupId=1**
 
-#### 调用方法
-
-HTTP GET
 
 #### 请求参数
 
-**1）参数表**
-
 | **参数名**   | **类型** | **必填**| **默认值**  | **说明**|
 | ------ | -------------- | ------------ |:--------:| --------- |
-| chainId | int  |  否    | 1      |  链编号      |
-| groupId | int  |     否      | 1      | 群组编号       |
+| chainId | String  |  否    | 1      |  链编号      |
+| groupId | String  |     否      | 1      | 群组编号       |
 
 
-**2）数据格式**
-无
-#### 响应参数
-
-**1）数据格式** 
+#### 响应内容示例
 
 ```json
 {

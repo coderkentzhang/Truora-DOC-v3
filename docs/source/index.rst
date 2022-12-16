@@ -10,8 +10,10 @@ Contents
    introduction.md
    deploy.md
    dev-quick-start.md
-   Truora-bac/index.md
-   Truora-Service/index.md
+   Truora-Service/outline.md
+   Truora-Service/inteface.md
+   Truora-Service/appendix.md
+   Truora-bac/index.md 
    CONTRIBUTING.md
    community.md
 
