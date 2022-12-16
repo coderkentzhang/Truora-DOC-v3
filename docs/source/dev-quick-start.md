@@ -57,7 +57,8 @@ Truora 预言机服务中有两个角色：
 http://localhost:5022/truora/index
 ```
 
-（localhost地址根据实际部署的IP或域名替换）
+**localhost地址根据实际部署的IP或域名替换**
+
 ---------
 
 
