@@ -396,10 +396,65 @@ http://localhost:5022/truora/history/query/{requestId}
 
 ### Dapp体验接口
 
-示例Dapp，可体验获取一些预置数据源的结果，获取的URL参见配置文件`application_dapp.yml`,以及返回的响应数据
+示例Dapp，可体验获取一些预置数据源的结果，预置的URL参见配置文件`application_dapps.yml`,以及返回的响应数据
+
+GeneralOracle是一个比较通用的示例合约，支持访问指定的外部数据源，接受`UINT256、STRING，BYTES`几种数据，客户端用`GeneralResult`对象封装返回值
+
+合约代码在项目的`contracts`路径下可以获取。
+
+JAVA客户端代码参见`com.webank.truora.dapps.GeneralOracleClient`
 
 
 
+#### 部署GeneralOracle合约
+
+```
+http://localhost:5022/truora/dapps/deploy
+```
+
+##### 返回数据示例
+
+其中的`dappContractAddress`字段值，可以用来后续调用
+
+```
+{
+  "code": 105000,
+  "message": "system exception",
+  "data": [
+    "chain0:group0",
+    "oracleCoreAddress = 0x32e3bdfadee312f8f5e073e170915a5b00b20cb6",
+    "dappContractAddress = 0xc058225ec31ed87b62e6a5846c7f72f9ac4e71e8"
+  ],
+  "totalCount": 3
+}
+```
+
+#### 发起调用
+
+get接口可不带参数，访问配置文件`application_dapps.yml`里预置的多个URL里的第一个。
+
+
+-------
+
+**支持的参数**
+
+`urlid=[n]` : 访问配置文件`application_dapps.yml`里预置的多个URL里的第n个
+
+`address=[0x...]` : 使用上一小节 deploy 接口部署得到的合约地址`dappContractAddress`，如果不指定，且配置文件里也没配置合约地址，则每次调用均动态创建
+
+`input=[字符串]` : 将字符串附加到请求数据源的url上，注意：仅对`http://localhost:5022/truora/source/text?input=sampletext`这个示例数据源生效。
+
+以上参数均可以为空
+
+--------
+
+可先访问这个URL列出已经配置的数据源和相关参数都有哪几个：
+
+```
+http://localhost:5022/truora/dapps/list
+```
+
+访问示例，url=x对应上面列出来的数据源序号，从0开始：
 
 ```
 http://localhost:5022/truora/dapps/get
@@ -418,6 +473,11 @@ http://localhost:5022/truora/dapps/get?url=2
 
 ```
 http://localhost:5022/truora/dapps/get?url=3
+```
+
+
+```
+http://localhost:5022/truora/dapps/get?url=4&input=sampletext
 ```
 
 
