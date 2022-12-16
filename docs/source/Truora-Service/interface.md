@@ -6,7 +6,7 @@
 http://localhost:5022/truora/index
 ```
 
-（localhost地址根据实际部署的IP或域名替换）
+**（localhost地址根据实际部署的IP或域名替换）**
 
 以下URL接口的访问方式如无特殊说明均为`GET`
 
@@ -14,7 +14,7 @@ http://localhost:5022/truora/index
 
 ### 查询 Truora 版本
 
-**http://localhost:5022/truora/version**
+```http://localhost:5022/truora/version```
 
 
 #### 响应内容示例
@@ -34,10 +34,10 @@ http://localhost:5022/truora/index
 <span id="list_group" />
 
 
-### 连接的底层链和群组查询接口
+### 列出连接的底层链和群组接口
 
 
-**http://localhost:5022/truora/chain/group/list**
+```http://localhost:5022/truora/chain/group/list```
 
 
 #### 响应内容示例
@@ -67,11 +67,11 @@ http://localhost:5022/truora/index
 
 ```
 
-### 连接的底层链和群组检测接口
+### Ping检测底层链和群组连通性接口
 
 查询 Truora 服务所连接的底层链列表，并发起一次连通性检测(获取区块高度和基本信息）
 
-**http://localhost:5022/truora/chain/group/ping**
+```http://localhost:5022/truora/chain/group/ping```
 
 #### 响应内容示例
 
@@ -114,11 +114,13 @@ http://localhost:5022/truora/index
 
 for FISCOBCOS2:
 
-**http://localhost:5022/truora/oracle/address?chainId=1&groupId=1**
+```http://localhost:5022/truora/oracle/address?chainId=1&groupId=1```
 
 for FISCOBCOS3
 
-**http://localhost:5022/truora/oracle/address?chainId=chain0&groupId=group0**
+```http://localhost:5022/truora/oracle/address?chainId=chain0&groupId=group0```
+
+下同，不单独分列。
 
 
 #### 请求参数
@@ -162,7 +164,7 @@ for FISCOBCOS3
 
 ### 查询历史请求列表
 
-**http://localhost:5022/truora/history/list?pageNumber=1&pageSize=10&chainId=1&groupId=1&hideResult=false**
+```http://localhost:5022/truora/history/list?pageNumber=1&pageSize=10&chainId=1&groupId=1&hideResult=false```
 
 HTTP GET
 
@@ -278,7 +280,7 @@ HTTP GET
 
 ### 查询单个请求详情
 
-**http://localhost:5022/truora/history/query/{requestId}**
+```http://localhost:5022/truora/history/query/{requestId}```
 
 
 #### 请求参数
@@ -291,7 +293,6 @@ HTTP GET
 
 #### 响应内容示例
 
-**1）数据格式** 
 
 ```json
 {
@@ -364,9 +365,7 @@ HTTP GET
 
 查询 Truora-Service 服务信息，包括 `keyHash` 和 `publicKeyList`
 
-#### 接口URL
-
-**http://localhost:5022/truora/center/list?chainId=1&groupId=1**
+```http://localhost:5022/truora/center/list?chainId=1&groupId=1```
 
 
 #### 请求参数
@@ -409,3 +408,55 @@ HTTP GET
   "totalCount": 0
 }
 ```
+
+
+### Dapp体验接口
+
+示例Dapp，可体验获取一些预置数据源的结果，获取的URL参见配置文件`application_dapp.yml`,以及返回的响应数据
+
+
+
+```http://localhost:5022/truora/dapps/get```
+
+```http://localhost:5022/truora/dapps/get?url=1```
+
+```http://localhost:5022/truora/dapps/get?url=2```
+
+```http://localhost:5022/truora/dapps/get?url=3```
+
+
+#### 返回数据示例
+
+```
+{
+  "code": 0,
+  "message": "success",
+  "data": [
+    "chain0:group0",
+    "oracleCoreAddress = 0x32e3bdfadee312f8f5e073e170915a5b00b20cb6",
+    "dappContractAddress = ",
+    "url = http://localhost:5022/truora/source/rand",
+    "retValue = GeneralResult(returnType=INT256, intValue=6896, bytesValue=null, strValue=null, isValid=true)"
+  ],
+  "totalCount": 5
+}
+```
+
+### 预置的数据源
+
+这些数据源作为“桩”，供快速体验，不要用于真实的应用环境
+
+返回一个json，rates数组里包含模拟汇率
+
+```http://localhost:5022/truora/source/exchange"```
+
+ 对应真实的URL ```https://api.exchangerate-api.com/v4/latest/CNY```
+
+多行结果，每一行是一个整形的随机数
+
+```http://localhost:5022/truora/source/rand```
+
+
+返回示例字符串
+```http://localhost:5022/truora/source/text?input=sampletext```
+
