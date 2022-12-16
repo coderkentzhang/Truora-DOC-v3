@@ -431,10 +431,13 @@ http://localhost:5022/truora/dapps/deploy
 
 #### 发起调用
 
-get接口可不带参数，访问配置文件`application_dapps.yml`里预置的多个URL里的第一个。
+
+```
+http://localhost:5022/truora/dapps/get
+```
 
 
--------
+--------
 
 **支持的参数**
 
@@ -444,9 +447,17 @@ get接口可不带参数，访问配置文件`application_dapps.yml`里预置的
 
 `input=[字符串]` : 将字符串附加到请求数据源的url上，注意：仅对`http://localhost:5022/truora/source/text?input=sampletext`这个示例数据源生效。
 
-以上参数均可以为空
+以上参数均可以为空。完整的url示例:
+
+```
+http://localhost:5022/truora/dapps/get?url=1&address=0xc058225ec31ed87b62e6a5846c7f72f9ac4e71e8&input=sampletext
+```
+
+实际调用时注意替换
 
 --------
+
+`dapps/get`接口可不带参数时，访问配置文件`application_dapps.yml`里预置的多个URL里的第一个。
 
 可先访问这个URL列出已经配置的数据源和相关参数都有哪几个：
 
@@ -454,11 +465,7 @@ get接口可不带参数，访问配置文件`application_dapps.yml`里预置的
 http://localhost:5022/truora/dapps/list
 ```
 
-访问示例，url=x对应上面列出来的数据源序号，从0开始：
-
-```
-http://localhost:5022/truora/dapps/get
-```
+示例，url=x对应上面列出来的数据源序号，从0开始：
 
 
 ```
