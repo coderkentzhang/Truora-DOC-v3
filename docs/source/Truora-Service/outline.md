@@ -1,4 +1,4 @@
-# Truora-Service架构解析
+# 架构原理解析
 
 [![](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)    
 
@@ -53,5 +53,27 @@ Truora-Service 目前主要支持获取链下API,链上可验证随机数（VRF�
 
 ```    
   
+## VRF算法库
+
+VRF随机数生成采用RUST算法库，github连接:
+
+```
+https://github.com/WeBankBlockchain/ecvrf-rs
+````
+
+基于FFI接口实现VRF随机数的生成、验证。
+
+[FFI接口代码文件](https://github.com/WeBankBlockchain/ecvrf-rs/blob/master/src/vrf_ffi.rs)
+
+[示例和单元测试代码文件](https://github.com/WeBankBlockchain/ecvrf-rs/blob/master/examples/vrf_ffi_sample.rs)
+
+JAVA端代码封装参见: `com.webank.truora.vrfutils.VRFUtils`
+
+预编译的二进制库文件参见 `src/main/resources/`路径下的`libecvrf.so` (linux)和 `ecvrf.dll`(windows)
+
+目前该库支持linux(centos/ubuntu)主流版本和windows10/11版本，均为64位版本。
+
+如有更多的平台需要支持，建议clone此rust算法库，进行本地编译。
+
        
 

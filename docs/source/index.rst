@@ -10,6 +10,7 @@ Contents
    introduction.md
    deploy.md
    dev-quick-start.md
+   dev-stepbystep.md
    Truora-Service/outline.md
    Truora-Service/interface.md
    Truora-Service/appendix.md
