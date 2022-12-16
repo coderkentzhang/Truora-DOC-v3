@@ -501,7 +501,7 @@ http://localhost:5022/truora/dapps/get?url=3
 
 这些数据源作为“桩”，供快速体验，不要用于真实的应用环境
 
-返回一个json，rates数组里包含模拟汇率
+#### ** 返回一个json，rates数组里包含模拟汇率
 
 
 ```
@@ -513,15 +513,20 @@ http://localhost:5022/truora/source/exchange"
 https://api.exchangerate-api.com/v4/latest/CNY
 ```
 
-多行结果，每一行是一个整形的随机数
+#### ** 多行结果，每一行是一个整形的随机数
 
 
 ```
 http://localhost:5022/truora/source/rand
 ```
 
+对应真实的URL
+```
+ https://www.random.org/integers/?num=10&min=1&max=1000&col=1&base=10&format=plain&rnd=new
+ ```
 
-返回示例字符串
+
+####  ** 返回示例字符串
 
 ```
 http://localhost:5022/truora/source/text?input=sampletext
