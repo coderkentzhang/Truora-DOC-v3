@@ -73,7 +73,7 @@ JAVA端代码封装参见: `com.webank.truora.vrfutils.VRFUtils`
 
 目前该库支持linux(centos/ubuntu)主流版本和windows10/11版本，均为64位版本。
 
-如有更多的平台需要支持，建议clone此rust算法库，进行本地编译。
+如有更多的平台需要支持，建议clone此rust算法库，在RUST开发环境下进行本地编译。
 
        
-
+**vrf标准规范中尚未有基于SM2，SM3的实现，本方案暂不支持国密** 
